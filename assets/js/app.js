@@ -81,19 +81,6 @@ d3.csv("/assets/data/data.csv").then(function (stateData) {
             return d.abbr
         });
 
-    // Initalize Tooltip
-    var toolTip = d3.tip()
-        .attr("class", "tooltip")
-        .offset([80, -70])
-        .style("position", "absolute")
-        .style("background", "lightsteelblue")
-        .style("pointer-events", "none")
-        .html(function (d) {
-            return (`${d.state}<br>Population In Poverty (%): ${d.poverty}<br>Lacks Healthcare (%): ${d.healthcare}`)
-        });
-    // create tooltip in chartgroup
-    chartGroup.call(toolTip);
-
     // add a mouseover event to show tootltip
     circlesGroup.on("mouseover", function (d) {
         toolTip.show(d, this);
@@ -112,9 +99,21 @@ d3.csv("/assets/data/data.csv").then(function (stateData) {
         .attr("class", "axisText")
         .text("Lacks Healthcare (%)");
 
-
     chartGroup.append("text")
         .attr("transform", `translate(${width / 2.5}, ${height + margin.top + 30})`)
         .attr("class", "axisText")
         .text("In Poverty (%)");
+
+    // Initalize Tooltip
+    var toolTip = d3.tip()
+        .attr("class", "tooltip")
+        .offset([80, -70])
+        .style("position", "absolute")
+        .style("background", "lightsteelblue")
+        .style("pointer-events", "none")
+        .html(function (d) {
+            return (`${d.state}<br>Population In Poverty (%): ${d.poverty}<br>Lacks Healthcare (%): ${d.healthcare}`)
+        });
+    // create tooltip in chartgroup
+    chartGroup.call(toolTip);
 });
